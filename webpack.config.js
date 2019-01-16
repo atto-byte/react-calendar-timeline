@@ -27,14 +27,14 @@ const config = {
         loader: 'style-loader!css-loader!sass-loader'
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|tsx|ts)$/,
         exclude: /node_modules/,
         loaders: ['babel-loader']
       }
     ]
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
     modules: [path.resolve('./demo'), 'node_modules'],
     alias: {
       '~': path.join(__dirname, './demo'),

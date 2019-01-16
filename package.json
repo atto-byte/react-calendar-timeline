@@ -1,12 +1,13 @@
 {
-  "name": "react-calendar-timeline",
+  "name": "@atto-byte/react-calendar-timeline",
   "version": "0.23.0",
   "description": "react calendar timeline",
   "main": "lib/index.js",
+  
   "scripts": {
     "build": "npm run build:lib",
     "build:demo": "echo '!!! Building Demo' && cross-env NODE_ENV=production webpack --progress",
-    "build:lib": "echo '!!! Building Library' && rimraf lib && cross-env NODE_ENV=production babel src --out-dir lib && node-sass src/lib/Timeline.scss lib/Timeline.css && sed -i'.bak' 's/Timeline\\.scss/Timeline\\.css/g' lib/lib/Timeline.js && rm lib/lib/Timeline.js.bak",
+    "build:lib": "echo '!!! Building Library' && rimraf lib && cross-env NODE_ENV=production babel src --out-dir lib && node-sass src/lib/Timeline.scss lib/Timeline.css",
     "lint": "eslint --ext .js --ext .jsx ./src",
     "lint:fix": "prettier-eslint --parser babylon --write \"src/**/*.js\"",
     "prepublish": "npm run build:lib",
@@ -18,45 +19,12 @@
     "lib",
     "src"
   ],
-  "homepage": "https://github.com/namespace-ee/react-calendar-timeline",
+  "homepage": "https://github.com/williamluke4/react-calendar-timeline",
   "repository": {
     "type": "git",
-    "url": "https://github.com/namespace-ee/react-calendar-timeline.git"
+    "url": "https://github.com/williamluke4/react-calendar-timeline.git"
   },
-  "author": "Marius Andra <marius.andra@gmail.com>",
-  "contributors": [
-    {
-      "name": "Stanisław Chmiela",
-      "email": "sjchmiela@gmail.com"
-    },
-    {
-      "name": "Mike Joyce",
-      "url": "https://github.com/mcMickJuice"
-    },
-    {
-      "name": "Samuel Rossetti"
-    },
-    {
-      "name": "amakhrov",
-      "url": "https://github.com/amakhrov"
-    },
-    {
-      "name": "Ahmad Ilaiwi",
-      "url": "https://github.com/Ilaiwi"
-    },
-    {
-      "name": "dkarnutsch",
-      "url": "https://github.com/dkarnutsch"
-    },
-    {
-      "name": "Alex Maclean",
-      "url": "https://github.com/acemac"
-    },
-    {
-      "name": "Kevin Mann",
-      "url": "https://github.com/kevinmanncito"
-    }
-  ],
+  "author": "William Luke <williamluke4@gmail.com>",
   "license": "MIT",
   "keywords": [
     "react",
@@ -102,16 +70,18 @@
     "react-dom": ">=16.3"
   },
   "devDependencies": {
-    "babel-cli": "^6.7.5",
-    "babel-core": "6.26.3",
-    "babel-eslint": "^7.1.1",
-    "babel-jest": "^22.0.6",
-    "babel-loader": "^7.1.5",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.1.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^9.0.0",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^8.0.0",
     "babel-plugin-react-remove-properties": "^0.2.5",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "1.7.0",
-    "babel-preset-react": "^6.5.0",
     "cross-env": "^5.1.4",
     "css-loader": "~0.26.0",
     "enzyme": "^3.3.0",
