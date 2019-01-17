@@ -1,67 +1,63 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { MarkerCanvasProvider } from './MarkerCanvasContext'
-import TimelineMarkersRenderer from './TimelineMarkersRenderer'
-import { TimelineStateConsumer } from '../timeline/TimelineStateContext'
-
+import * as React from "react";
+import { MarkerCanvasProvider } from "./MarkerCanvasContext";
+import TimelineMarkersRenderer from "./TimelineMarkersRenderer";
+import { TimelineStateConsumer } from "../timeline/TimelineStateContext";
 // expand to fill entire parent container (ScrollElement)
 const staticStyles = {
-  position: 'absolute',
+  position: "absolute",
   left: 0,
   right: 0,
   top: 0,
   bottom: 0
-}
-
+};
+type MarkerCanvasProps = {
+  getDateFromLeftOffsetPosition: (...args: any[]) => any
+};
+type MarkerCanvasState = {
+  subscribeToMouseOver: (sub: any) => () => void
+};
 /**
  * Renders registered markers and exposes a mouse over listener for
  * CursorMarkers to subscribe to
  */
-class MarkerCanvas extends React.Component {
-  static propTypes = {
-    getDateFromLeftOffsetPosition: PropTypes.func.isRequired,
-    children: PropTypes.node
-  }
-
+class MarkerCanvas extends React.Component<
+  MarkerCanvasProps,
+  MarkerCanvasState
+> {
   handleMouseMove = evt => {
     if (this.subscription != null) {
-      const { pageX } = evt
+      const { pageX } = evt;
       // FIXME: dont use getBoundingClientRect. Use passed in scroll amount
-      const { left: containerLeft } = this.containerEl.getBoundingClientRect()
-
+      const { left: containerLeft } = this.containerEl.getBoundingClientRect();
       // number of pixels from left we are on canvas
       // we do this calculation as pageX is based on x from viewport whereas
       // our canvas can be scrolled left and right and is generally outside
       // of the viewport.  This calculation is to get how many pixels the cursor
       // is from left of this element
-      const canvasX = pageX - containerLeft
-      const date = this.props.getDateFromLeftOffsetPosition(canvasX)
+      const canvasX = pageX - containerLeft;
+      const date = this.props.getDateFromLeftOffsetPosition(canvasX);
       this.subscription({
         leftOffset: canvasX,
         date,
         isCursorOverCanvas: true
-      })
+      });
     }
-  }
-
+  };
   handleMouseLeave = () => {
     if (this.subscription != null) {
       // tell subscriber that we're not on canvas
-      this.subscription({ leftOffset: 0, date: 0, isCursorOverCanvas: false })
+      this.subscription({ leftOffset: 0, date: 0, isCursorOverCanvas: false });
     }
-  }
-
+  };
   handleMouseMoveSubscribe = sub => {
-    this.subscription = sub
+    this.subscription = sub;
     return () => {
-      this.subscription = null
-    }
-  }
-
+      this.subscription = null;
+    };
+  };
   state = {
     subscribeToMouseOver: this.handleMouseMoveSubscribe
-  }
-
+  };
   render() {
     return (
       <MarkerCanvasProvider value={this.state}>
@@ -75,10 +71,9 @@ class MarkerCanvas extends React.Component {
           {this.props.children}
         </div>
       </MarkerCanvasProvider>
-    )
+    );
   }
 }
-
 const MarkerCanvasWrapper = props => (
   <TimelineStateConsumer>
     {({ getDateFromLeftOffsetPosition }) => (
@@ -88,6 +83,5 @@ const MarkerCanvasWrapper = props => (
       />
     )}
   </TimelineStateConsumer>
-)
-
-export default MarkerCanvasWrapper
+);
+export default MarkerCanvasWrapper;

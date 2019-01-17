@@ -1,29 +1,25 @@
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import GroupRow from './GroupRow'
-
-export default class GroupRows extends Component {
-  static propTypes = {
-    canvasWidth: PropTypes.number.isRequired,
-    lineCount: PropTypes.number.isRequired,
-    groupHeights: PropTypes.array.isRequired,
-    onRowClick: PropTypes.func.isRequired,
-    onRowDoubleClick: PropTypes.func.isRequired,
-    clickTolerance: PropTypes.number.isRequired,
-    groups: PropTypes.array.isRequired,
-    horizontalLineClassNamesForGroup: PropTypes.func,
-    onRowContextClick: PropTypes.func.isRequired,
-  }
-
+import * as React from "react";
+import GroupRow from "./GroupRow";
+type GroupRowsProps = {
+  canvasWidth: number,
+  lineCount: number,
+  groupHeights: any[],
+  onRowClick: (...args: any[]) => any,
+  onRowDoubleClick: (...args: any[]) => any,
+  clickTolerance: number,
+  groups: any[],
+  horizontalLineClassNamesForGroup?: (...args: any[]) => any,
+  onRowContextClick: (...args: any[]) => any
+};
+export default class GroupRows extends React.Component<GroupRowsProps, {}> {
   shouldComponentUpdate(nextProps) {
     return !(
       nextProps.canvasWidth === this.props.canvasWidth &&
       nextProps.lineCount === this.props.lineCount &&
       nextProps.groupHeights === this.props.groupHeights &&
       nextProps.groups === this.props.groups
-    )
+    );
   }
-
   render() {
     const {
       canvasWidth,
@@ -34,10 +30,9 @@ export default class GroupRows extends Component {
       clickTolerance,
       groups,
       horizontalLineClassNamesForGroup,
-      onRowContextClick,
-    } = this.props
-    let lines = []
-
+      onRowContextClick
+    } = this.props;
+    let lines = [];
     for (let i = 0; i < lineCount; i++) {
       lines.push(
         <GroupRow
@@ -54,9 +49,8 @@ export default class GroupRows extends Component {
             height: `${groupHeights[i] - 1}px`
           }}
         />
-      )
+      );
     }
-
-    return <div className="rct-horizontal-lines">{lines}</div>
+    return <div className="rct-horizontal-lines">{lines}</div>;
   }
 }

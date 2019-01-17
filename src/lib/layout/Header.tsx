@@ -1,31 +1,28 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import TimelineElementsHeader from './TimelineElementsHeader'
-
-class Header extends Component {
-  static propTypes = {
-    hasRightSidebar: PropTypes.bool.isRequired,
-    showPeriod: PropTypes.func.isRequired,
-    canvasTimeStart: PropTypes.number.isRequired,
-    canvasTimeEnd: PropTypes.number.isRequired,
-    canvasWidth: PropTypes.number.isRequired,
-    minUnit: PropTypes.string.isRequired,
-    timeSteps: PropTypes.object.isRequired,
-    width: PropTypes.number.isRequired,
-    headerLabelFormats: PropTypes.object.isRequired,
-    subHeaderLabelFormats: PropTypes.object.isRequired,
-    stickyOffset: PropTypes.number,
-    stickyHeader: PropTypes.bool.isRequired,
-    headerLabelGroupHeight: PropTypes.number.isRequired,
-    headerLabelHeight: PropTypes.number.isRequired,
-    leftSidebarHeader: PropTypes.node,
-    rightSidebarHeader: PropTypes.node,
-    leftSidebarWidth: PropTypes.number,
-    rightSidebarWidth: PropTypes.number,
-    headerRef: PropTypes.func.isRequired,
-    scrollHeaderRef: PropTypes.func.isRequired
-  }
-
+import * as React from "react";
+import TimelineElementsHeader from "./TimelineElementsHeader";
+type HeaderProps = {
+  hasRightSidebar: boolean,
+  showPeriod: (...args: any[]) => any,
+  canvasTimeStart: number,
+  canvasTimeEnd: number,
+  canvasWidth: number,
+  minUnit: string,
+  timeSteps: object,
+  width: number,
+  headerLabelFormats: object,
+  subHeaderLabelFormats: object,
+  stickyOffset?: number,
+  stickyHeader: boolean,
+  headerLabelGroupHeight: number,
+  headerLabelHeight: number,
+  leftSidebarHeader?: React.ReactNode,
+  rightSidebarHeader?: React.ReactNode,
+  leftSidebarWidth?: number,
+  rightSidebarWidth?: number,
+  headerRef: (...args: any[]) => any,
+  scrollHeaderRef: (...args: any[]) => any
+};
+class Header extends React.Component<HeaderProps, {}> {
   render() {
     const {
       width,
@@ -48,23 +45,16 @@ class Header extends Component {
       rightSidebarHeader,
       leftSidebarWidth,
       rightSidebarWidth
-    } = this.props
-
+    } = this.props;
     const headerStyle = {
       top: stickyHeader ? stickyOffset || 0 : 0
-    }
-
-    const headerClass = stickyHeader ? 'header-sticky' : ''
-
+    };
+    const headerClass = stickyHeader ? "header-sticky" : "";
     const leftSidebar = leftSidebarHeader && leftSidebarWidth > 0 && (
-      <div
-        className="rct-sidebar-header"
-        style={{ width: leftSidebarWidth }}
-      >
+      <div className="rct-sidebar-header" style={{ width: leftSidebarWidth }}>
         {leftSidebarHeader}
       </div>
-    )
-
+    );
     const rightSidebar = rightSidebarHeader && rightSidebarWidth > 0 && (
       <div
         className="rct-sidebar-header rct-sidebar-right"
@@ -72,8 +62,7 @@ class Header extends Component {
       >
         {rightSidebarHeader}
       </div>
-    )
-
+    );
     return (
       <div
         className={`rct-header-container ${headerClass}`}
@@ -98,13 +87,11 @@ class Header extends Component {
             headerLabelGroupHeight={headerLabelGroupHeight}
             headerLabelHeight={headerLabelHeight}
             scrollHeaderRef={scrollHeaderRef}
-
           />
         </div>
         {rightSidebar}
       </div>
-    )
+    );
   }
 }
-
-export default Header
+export default Header;

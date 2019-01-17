@@ -1,11 +1,10 @@
-import React from 'react'
-import { TimelineMarkersConsumer } from './TimelineMarkersContext'
-import { TimelineMarkerType } from './markerType'
-import TodayMarker from './implementations/TodayMarker'
-import CustomMarker from './implementations/CustomMarker'
-import { TimelineStateConsumer } from '../timeline/TimelineStateContext'
-import CursorMarker from './implementations/CursorMarker'
-
+import * as React from "react";
+import { TimelineMarkersConsumer } from "./TimelineMarkersContext";
+import { TimelineMarkerType } from "./markerType";
+import TodayMarker from "./implementations/TodayMarker";
+import CustomMarker from "./implementations/CustomMarker";
+import { TimelineStateConsumer } from "../timeline/TimelineStateContext";
+import CursorMarker from "./implementations/CursorMarker";
 /** Internal component used in timeline to render markers registered */
 const TimelineMarkersRenderer = () => {
   return (
@@ -23,7 +22,7 @@ const TimelineMarkersRenderer = () => {
                       renderer={marker.renderer}
                       interval={marker.interval}
                     />
-                  )
+                  );
                 case TimelineMarkerType.Custom:
                   return (
                     <CustomMarker
@@ -32,7 +31,7 @@ const TimelineMarkersRenderer = () => {
                       date={marker.date}
                       getLeftOffsetFromDate={getLeftOffsetFromDate}
                     />
-                  )
+                  );
                 case TimelineMarkerType.Cursor:
                   return (
                     <CursorMarker
@@ -40,16 +39,15 @@ const TimelineMarkersRenderer = () => {
                       renderer={marker.renderer}
                       getLeftOffsetFromDate={getLeftOffsetFromDate}
                     />
-                  )
+                  );
                 default:
-                  return null
+                  return null;
               }
-            })
+            });
           }}
         </TimelineMarkersConsumer>
       )}
     </TimelineStateConsumer>
-  )
-}
-
-export default TimelineMarkersRenderer
+  );
+};
+export default TimelineMarkersRenderer;
