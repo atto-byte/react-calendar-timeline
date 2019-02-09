@@ -1,6 +1,7 @@
 import * as React from "react";
-import moment from "moment";
+import * as moment from "moment";
 import { iterateTimes, getNextUnit } from "../utility/calendar";
+import { useEffect } from "react";
 type TimelineElementsHeaderProps = {
   hasRightSidebar: boolean,
   showPeriod: (...args: any[]) => any,
@@ -20,24 +21,17 @@ type TimelineElementsHeaderState = {
   touchTarget: null,
   touchActive: boolean
 };
-export default class TimelineElementsHeader extends React.Component<
-  TimelineElementsHeaderProps,
-  TimelineElementsHeaderState
-> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      touchTarget: null,
-      touchActive: false
-    };
-  }
-  handleHeaderMouseDown(evt) {
+const TimelineElementsHeader = (props: TimelineElementsHeaderProps) => {
+  const [touchTarget, setTouchTarget] = React.useState(null);
+  const [touchActive, setTouchActive] = React.useState(false);
+  
+  const handleHeaderMouseDown = (evt) => {
     //dont bubble so that we prevent our scroll component
     //from knowing about it
     evt.stopPropagation();
   }
-  headerLabel(time, unit, width) {
-    const { headerLabelFormats: f } = this.props;
+  const headerLabel = (time, unit, width) => {
+    const { headerLabelFormats: f } = props;
     if (unit === "year") {
       return time.format(width < 46 ? f.yearShort : f.yearLong);
     } else if (unit === "month") {
@@ -66,8 +60,8 @@ export default class TimelineElementsHeader extends React.Component<
       return time.format(f.time);
     }
   }
-  subHeaderLabel(time, unit, width) {
-    const { subHeaderLabelFormats: f } = this.props;
+  const subHeaderLabel = (time, unit, width) => {
+    const { subHeaderLabelFormats: f } = props;
     if (unit === "year") {
       return time.format(width < 46 ? f.yearShort : f.yearLong);
     } else if (unit === "month") {
@@ -92,37 +86,30 @@ export default class TimelineElementsHeader extends React.Component<
       return time.get(unit);
     }
   }
-  handlePeriodClick = (time, unit) => {
+  const handlePeriodClick = (time, unit) => {
     if (time && unit) {
-      this.props.showPeriod(moment(time - 0), unit);
+      props.showPeriod(moment(time - 0), unit);
     }
   };
-  shouldComponentUpdate(nextProps) {
-    const willUpate =
-      nextProps.canvasTimeStart != this.props.canvasTimeStart ||
-      nextProps.canvasTimeEnd != this.props.canvasTimeEnd ||
-      nextProps.width != this.props.width ||
-      nextProps.canvasWidth != this.props.canvasWidth ||
-      nextProps.subHeaderLabelFormats != this.props.subHeaderLabelFormats ||
-      nextProps.headerLabelFormats != this.props.headerLabelFormats ||
-      nextProps.hasRightSidebar != this.props.hasRightSidebar;
-    return willUpate;
-  }
-  render() {
-    const {
-      canvasTimeStart,
-      canvasTimeEnd,
-      canvasWidth,
-      minUnit,
-      timeSteps,
-      headerLabelGroupHeight,
-      headerLabelHeight,
-      hasRightSidebar
-    } = this.props;
-    const ratio = canvasWidth / (canvasTimeEnd - canvasTimeStart);
-    const twoHeaders = minUnit !== "year";
-    const topHeaderLabels = [];
-    // add the top header
+
+  useEffect(() => {
+
+  })
+
+  const {
+    canvasTimeStart,
+    canvasTimeEnd,
+    canvasWidth,
+    minUnit,
+    timeSteps,
+    headerLabelGroupHeight,
+    headerLabelHeight,
+    hasRightSidebar
+  } = props;
+  const ratio = canvasWidth / (canvasTimeEnd - canvasTimeStart);
+  const twoHeaders = minUnit !== "year";
+  const topHeaderLabels = [];
+  // add the top header
     if (twoHeaders) {
       const nextUnit = getNextUnit(minUnit);
       iterateTimes(
@@ -147,7 +134,7 @@ export default class TimelineElementsHeader extends React.Component<
               className={`rct-label-group${
                 hasRightSidebar ? " rct-has-right-sidebar" : ""
               }`}
-              onClick={() => this.handlePeriodClick(time, nextUnit)}
+              onClick={() => handlePeriodClick(time, nextUnit)}
               style={{
                 left: `${left - 1}px`,
                 width: `${labelWidth}px`,
@@ -157,7 +144,7 @@ export default class TimelineElementsHeader extends React.Component<
               }}
             >
               <span style={{ width: contentWidth, display: "block" }}>
-                {this.headerLabel(time, nextUnit, labelWidth)}
+                {headerLabel(time, nextUnit, labelWidth)}
               </span>
             </div>
           );
@@ -184,7 +171,7 @@ export default class TimelineElementsHeader extends React.Component<
             className={`rct-label ${twoHeaders ? "" : "rct-label-only"} ${
               firstOfType ? "rct-first-of-type" : ""
             } ${minUnit !== "month" ? `rct-day-${time.day()}` : ""} `}
-            onClick={() => this.handlePeriodClick(time, minUnit)}
+            onClick={() => handlePeriodClick(time, minUnit)}
             style={{
               left: `${left - leftCorrect}px`,
               width: `${labelWidth}px`,
@@ -204,7 +191,7 @@ export default class TimelineElementsHeader extends React.Component<
               cursor: "pointer"
             }}
           >
-            {this.subHeaderLabel(time, minUnit, labelWidth)}
+            {subHeaderLabel(time, minUnit, labelWidth)}
           </div>
         );
       }
@@ -217,11 +204,11 @@ export default class TimelineElementsHeader extends React.Component<
         key="header"
         data-testid="header"
         className="rct-header"
-        onMouseDown={this.handleHeaderMouseDown}
-        onTouchStart={this.touchStart}
-        onTouchEnd={this.touchEnd}
+        onMouseDown={handleHeaderMouseDown}
+        onTouchStart={touchStart}
+        onTouchEnd={touchEnd}
         style={headerStyle}
-        ref={this.props.scrollHeaderRef}
+        ref={props.scrollHeaderRef}
       >
         <div
           className="rct-top-header"
@@ -242,3 +229,4 @@ export default class TimelineElementsHeader extends React.Component<
     );
   }
 }
+export default TimelineElementsHeader

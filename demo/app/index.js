@@ -6,15 +6,7 @@ import PropTypes from 'prop-types'
 import { HashRouter as Router, Route, Link, withRouter } from 'react-router-dom'
 
 const demos = {
-  main: require('./demo-main').default,
-  performance: require('./demo-performance').default,
-  treeGroups: require('./demo-tree-groups').default,
-  linkedTimelines: require('./demo-linked-timelines').default,
-  elementResize: require('./demo-element-resize').default,
-  stickyHeader: require('./demo-sticky-header').default,
-  renderers: require('./demo-renderers').default,
-  verticalClasses: require('./demo-vertical-classes').default,
-  customItems: require('./demo-custom-items').default
+  main: require('./demo-tree-groups').default,
 }
 
 // A simple component that shows the pathname of the current location
