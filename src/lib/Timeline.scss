@@ -131,14 +131,14 @@ $weekend: rgba(250, 246, 225, 0.5);
     margin: 0;
     color: $sidebar-color;
     background: $sidebar-background-color;
-    border-right: $border-width solid $border-color;
+    // border-right: $border-width solid $border-color;
     box-sizing: border-box;
     border-bottom: $border-width solid $border-color;
     overflow: hidden;
 
     &.rct-sidebar-right {
       border-right: 0;
-      border-left: $border-width solid $border-color;
+      // border-left: $border-width solid $border-color;
     }
   }
 
@@ -153,7 +153,7 @@ $weekend: rgba(250, 246, 225, 0.5);
 
     &.rct-sidebar-right {
       border-right: 0;
-      border-left: $border-width solid $border-color;
+      // border-left: $border-width solid $border-color;
     }
 
     .rct-sidebar-row {
@@ -163,7 +163,7 @@ $weekend: rgba(250, 246, 225, 0.5);
       text-overflow: ellipsis;
       box-sizing: content-box;
       margin: 0;
-      border-bottom: $border-width solid $border-color;
+      // border-bottom: $border-width solid $border-color;
 
       &.rct-sidebar-row-odd {
         background: $row-background-odd;

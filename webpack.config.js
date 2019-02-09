@@ -23,7 +23,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.scss$/,
+        test:  /\.(css|scss)$/,
         loader: 'style-loader!css-loader!sass-loader'
       },
       {
@@ -34,7 +34,7 @@ const config = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.css'],
     modules: [path.resolve('./demo'), 'node_modules'],
     alias: {
       '~': path.join(__dirname, './demo'),

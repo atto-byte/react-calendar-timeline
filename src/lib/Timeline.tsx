@@ -757,7 +757,7 @@ export default class ReactCalendarTimeline extends React.Component<
     minUnit,
     timeSteps,
     headerLabelGroupHeight,
-    headerLabelHeight
+    headerLabelHeight,
   ) {
     return (
       <Header
@@ -769,7 +769,7 @@ export default class ReactCalendarTimeline extends React.Component<
         timeSteps={timeSteps}
         headerLabelGroupHeight={headerLabelGroupHeight}
         headerLabelHeight={headerLabelHeight}
-        width={this.state.width}
+        width={this.props.sidebarContent ? (this.state.width): (this.state.width + this.props.sidebarWidth)}
         stickyOffset={this.props.stickyOffset}
         stickyHeader={this.props.stickyHeader}
         showPeriod={this.showPeriod}
@@ -934,7 +934,7 @@ export default class ReactCalendarTimeline extends React.Component<
               minUnit,
               timeSteps,
               headerLabelGroupHeight,
-              headerLabelHeight
+              headerLabelHeight,
             )}
             {sidebarWidth > 0 &&
               this.sidebar(height, groupHeights, headerHeight)}
